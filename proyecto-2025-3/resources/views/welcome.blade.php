@@ -354,7 +354,19 @@
     ACCEDER <i class="fas fa-arrow-right"></i>
 </a>
 
+            
+  <div class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3 class="menu-title">ADMINISTRACIÓN</h3>
+                <p class="menu-description">Panel de administración del sistema</p>
+                <a href="{{ route('admin.index') }}" class="menu-link">
+                    ACCEDER <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
+        
+
         </div>
         
         <footer>

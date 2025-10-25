@@ -240,15 +240,16 @@
         </header>
         
         <div class="auth-options">
-            <a href="#" class="auth-btn">
-                <i class="fas fa-sign-in-alt"></i>
-                INICIAR SESIÓN
-            </a>
-            
-            <a href="#" class="auth-btn">
-                <i class="fas fa-user-plus"></i>
-                CREAR CUENTA
-            </a>
+            <a href="{{ route('usuarios.login') }}" class="auth-btn">
+    <i class="fas fa-sign-in-alt"></i>
+    INICIAR SESIÓN
+</a>
+
+<a href="{{ route('usuarios.create') }}" class="auth-btn">
+    <i class="fas fa-user-plus"></i>
+    CREAR CUENTA
+</a>
+
         </div>
         
         <footer>

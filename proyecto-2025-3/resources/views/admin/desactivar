@@ -1,0 +1,101 @@
+<div class="container mt-5">
+    <style>
+        .deactivation-card {
+            background: linear-gradient(45deg, #2a0a0a, #1a1a1a);
+            border: 1px solid rgba(255, 69, 0, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.2);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease;
+        }
+        
+        .deactivation-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 35px rgba(255, 69, 0, 0.3);
+        }
+        
+        .pulse-warning {
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.9; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0.9; }
+        }
+        
+        .btn-danger-custom {
+            background: rgba(255, 69, 0, 0.1);
+            border: 2px solid #ff4500;
+            color: #ff4500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-danger-custom:hover {
+            background: rgba(255, 69, 0, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .btn-danger-custom::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 69, 0, 0.2), 
+                transparent);
+            transform: rotate(45deg);
+            animation: dangerFlow 1.5s infinite;
+        }
+        
+        @keyframes dangerFlow {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+    </style>
+
+    <h2 class="text-danger text-center mb-4 fw-bold pulse-warning">
+        <i class="fas fa-exclamation-triangle me-2"></i>DESACTIVAR USUARIO
+    </h2>
+
+    <div class="deactivation-card mt-4 shadow-lg">
+        <div class="card-body">
+            <div class="alert alert-dark text-center mb-4">
+                <h4 class="text-warning mb-3">
+                    <i class="fas fa-user-slash me-2"></i>
+                    ¿Confirmar desactivación de cuenta?
+                </h4>
+                <p class="lead text-light mb-1">Usuario afectado:</p>
+                <h3 class="text-danger fw-bold">{{ $usuario->nombre }}</h3>
+                <hr class="border-secondary">
+                <p class="text-muted mt-3">
+                    <i class="fas fa-info-circle me-2"></i>
+                    La cuenta será suspendida temporalmente y no podrá acceder al sistema
+                </p>
+            </div>
+
+            <form action="{{ route('admin.desactivar.confirm', $usuario->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                
+                <div class="d-flex justify-content-center gap-4 mt-5">
+                    <a href="{{ route('admin.index') }}" 
+                       class="btn btn-outline-secondary btn-lg"
+                       style="border-width: 2px; backdrop-filter: blur(5px)">
+                       <i class="fas fa-arrow-left me-2"></i>Volver
+                    </a>
+                    <button type="submit" 
+                            class="btn btn-danger-custom btn-lg">
+                            <i class="fas fa-power-off me-2"></i>Confirmar Desactivación
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'genero', // ✅ Añadido el campo gender
+        'is_admin' // ✅ Opcional: para control de administradores
     ];
 
     /**
@@ -43,6 +46,15 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean', // ✅ Si decides usar administradores
         ];
+    }
+
+    /**
+     * Método para verificar si el usuario es administrador
+     */
+    public function isAdmin(): bool
+    {
+        return $this->is_admin === true;
     }
 }
