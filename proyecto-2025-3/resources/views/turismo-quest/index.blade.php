@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Principal - Matrix</title>
+    <title>Turismo Quest: Misterios de Huánuco</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -26,6 +26,9 @@
             min-height: 100vh;
             overflow: hidden;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         /* Efecto de lluvia de código Matrix */
@@ -54,8 +57,8 @@
         }
         
         .container {
-            max-width: 900px;
-            width: 100%;
+            width: 90%;
+            max-width: 500px;
             margin: 2rem auto;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
@@ -65,6 +68,8 @@
             position: relative;
             z-index: 1;
             animation: containerFade 2s ease-out;
+            padding: 40px 30px;
+            text-align: center;
         }
         
         @keyframes containerFade {
@@ -79,36 +84,17 @@
         }
         
         header {
-            background: rgba(0, 59, 0, 0.5);
-            padding: 30px;
-            text-align: center;
+            margin-bottom: 40px;
             color: var(--matrix-green);
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid var(--matrix-green);
             text-shadow: var(--matrix-glow);
         }
         
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(transparent 0%, rgba(0, 255, 65, 0.1) 50%, transparent 100%);
-            animation: scan 3s linear infinite;
-        }
-        
-        @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-        
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: 3px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
             animation: flicker 5s infinite alternate;
         }
         
@@ -124,44 +110,39 @@
         }
         
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            color: rgba(0, 255, 65, 0.8);
         }
         
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        .auth-options {
+            display: flex;
+            flex-direction: column;
             gap: 20px;
-            padding: 40px;
         }
         
-        .menu-item {
+        .auth-btn {
             background: rgba(0, 20, 0, 0.5);
             border-radius: 5px;
-            padding: 25px;
+            padding: 18px 25px;
             text-align: center;
             transition: all 0.3s ease;
             border: 1px solid var(--matrix-green);
             position: relative;
             overflow: hidden;
-            animation: itemFade 0.6s ease-out forwards;
-            opacity: 0;
             box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            color: var(--matrix-green);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
-        @keyframes itemFade {
-            from {
-                opacity: 0;
-                transform: translateY(20px) rotateY(90deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateY(0);
-            }
-        }
-        
-        .menu-item::before {
+        .auth-btn::before {
             content: "";
             position: absolute;
             top: 0;
@@ -173,102 +154,32 @@
             transition: transform 0.6s ease;
         }
         
-        .menu-item:hover {
+        .auth-btn:hover {
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 0 20px var(--matrix-green);
         }
         
-        .menu-item:hover::before {
+        .auth-btn:hover::before {
             transform: translateX(100%);
         }
         
-        .menu-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            color: var(--matrix-green);
-            text-shadow: var(--matrix-glow);
-            transition: all 0.3s ease;
-        }
-        
-        .menu-item:hover .menu-icon {
-            transform: scale(1.3) rotate(10deg);
-        }
-        
-        .menu-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--matrix-green);
-            text-shadow: var(--matrix-glow);
-            letter-spacing: 1px;
-        }
-        
-        .menu-description {
-            color: rgba(0, 255, 65, 0.7);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-        
-        .menu-link {
-            display: inline-block;
-            padding: 12px 25px;
-            background: rgba(0, 59, 0, 0.7);
-            color: var(--matrix-green);
-            text-decoration: none;
-            border-radius: 3px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-            border: 1px solid var(--matrix-green);
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .menu-link::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.5s ease;
-        }
-        
-        .menu-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 15px var(--matrix-green);
-        }
-        
-        .menu-link:hover::before {
-            left: 100%;
-        }
-        
-        .menu-link i {
-            margin-left: 8px;
+        .auth-btn i {
             transition: transform 0.3s ease;
         }
         
-        .menu-link:hover i {
+        .auth-btn:hover i {
             transform: translateX(5px);
         }
         
         footer {
             text-align: center;
-            padding: 20px;
-            background: rgba(0, 20, 0, 0.5);
+            margin-top: 40px;
             color: var(--matrix-green);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--matrix-green);
+            font-size: 0.8rem;
             text-shadow: 0 0 5px var(--matrix-green);
             letter-spacing: 1px;
+            opacity: 0.7;
         }
-        
-        /* Animaciones para elementos individuales */
-        .menu-item:nth-child(1) { animation-delay: 0.1s; }
-        .menu-item:nth-child(2) { animation-delay: 0.2s; }
         
         /* Efecto de partículas */
         .particles {
@@ -307,17 +218,13 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .menu-grid {
-                grid-template-columns: 1fr;
-                padding: 30px 20px;
-            }
-            
-            header {
+            .container {
+                width: 95%;
                 padding: 30px 20px;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -328,33 +235,20 @@
     
     <div class="container">
         <header>
-            <h1>MENÚ PRINCIPAL</h1>
-            <p class="subtitle">SISTEMA DE GESTIÓN INTEGRAL</p>
+            <h1>BIENVENIDO A TURISMO QUEST</h1>
+            <p class="subtitle">MISTERIOS DE HUÁNUCO</p>
         </header>
         
-        <div class="menu-grid">
-            <div class="menu-item">
-                <div class="menu-icon">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-                <h3 class="menu-title">ESTUDIANTES</h3>
-                <p class="menu-description">Gestión del módulo de estudiantes</p>
-                <a href="{{ route('estudiantes.index') }}" class="menu-link">
-                    ACCEDER <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+        <div class="auth-options">
+            <a href="#" class="auth-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                INICIAR SESIÓN
+            </a>
             
-            <div class="menu-item">
-                <div class="menu-icon">
-                    <i class="fas fa-mountain"></i>
-                </div>
-                <h3 class="menu-title">TURISMO QUEST</h3>
-                <p class="menu-description">Misterios de Huánuco</p>
-                <a href="{{ route('turismo-quest') }}" class="menu-link">
-    ACCEDER <i class="fas fa-arrow-right"></i>
-</a>
-
-            </div>
+            <a href="#" class="auth-btn">
+                <i class="fas fa-user-plus"></i>
+                CREAR CUENTA
+            </a>
         </div>
         
         <footer>
@@ -404,16 +298,10 @@
             }
         }
         
-        // Animación de entrada para los elementos del menú
+        // Animación de entrada
         document.addEventListener('DOMContentLoaded', function() {
             createMatrixRain();
             createParticles();
-            
-            const menuItems = document.querySelectorAll('.menu-item');
-            
-            menuItems.forEach((item, index) => {
-                item.style.animationDelay = `${0.1 + index * 0.1}s`;
-            });
             
             // Efecto de escritura para el título
             const title = document.querySelector('h1');
@@ -447,15 +335,6 @@
             };
             
             setTimeout(typeWriterTitle, 500);
-            
-            // Efecto de parpadeo aleatorio para los elementos
-            setInterval(() => {
-                const randomItem = menuItems[Math.floor(Math.random() * menuItems.length)];
-                randomItem.style.boxShadow = '0 0 25px var(--matrix-green)';
-                setTimeout(() => {
-                    randomItem.style.boxShadow = '0 0 10px rgba(0, 255, 65, 0.3)';
-                }, 300);
-            }, 2000);
         });
     </script>
 </body>
