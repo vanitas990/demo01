@@ -1,41 +1,35 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    // Elimina esta línea si existe:
-    // use RegistersUsers;
-    
-    // Método para mostrar formulario de registro
     public function showRegistrationForm()
     {
-        return view('usuarios.create');
+        return view('usuarios.registro');
     }
-    
-    // Método para procesar registro
-    public function create(Request $request)
+
+    public function register(Request $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+        $validatedData = $request->validate([
+            'nombre' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
+            'genero' => ['required', 'string'],
         ]);
-        
+
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'name' => $validatedData['nombre'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'genero' => $validatedData['genero'],
         ]);
-        
-        Auth::login($user);
-        
-        return redirect('/admin');
+
+        // Redirigir a la página de login con un mensaje de éxito
+        return redirect()->route('login')->with('success', 'Cuenta creada correctamente');
     }
 }

@@ -17,33 +17,23 @@ class LoginController extends Controller
         return view('usuarios.login');
     }
     
-    // Método para procesar login
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-        
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            
-            return redirect()->intended('/admin');
-        }
-        
-        return back()->withErrors([
-            'email' => 'Las credenciales proporcionadas no son válidas.',
-        ])->onlyInput('email');
+   public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+
+        // Cambia '/admin' por '/usuarios/juego'
+        return redirect()->intended('/usuarios/juego');
     }
-    
-    // Método para logout
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        
-        return redirect('/');
-    }
+
+    return back()->withErrors([
+        'email' => 'Las credenciales proporcionadas no son válidas.',
+    ])->onlyInput('email');
+}
+
 }
