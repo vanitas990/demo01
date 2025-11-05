@@ -13,16 +13,17 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100);
-            $table->string('apellido', 100)->nullable();
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('telefono', 20)->nullable();
-            $table->string('direccion')->nullable();
-            $table->enum('genero', ['masculino', 'femenino', 'otro'])->nullable();
+            $table->string('avatar')->nullable();
+            $table->integer('nivel')->default(1);
+            $table->integer('experiencia')->default(0);
+            $table->integer('monedas')->default(0);
+            $table->integer('partidas_jugadas')->default(0);
+            $table->integer('victorias')->default(0);
+            $table->rememberToken();
             $table->timestamps();
-            $table->string('estado')->default('activo');
-
         });
     }
 
