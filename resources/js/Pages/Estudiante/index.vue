@@ -47,25 +47,36 @@ defineProps({
                                     <i class="fas fa-user-graduate text-2xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold">{{ estudiante.nombre }}</h3>
-                                    <p class="text-blue-100 text-sm">{{ estudiante.carrera || 'Estudiante' }}</p>
+                                    
+                                    <p class="text-blue-100 text-sm">{{ estudiante.nombres || 'Estudiante' }} {{ estudiante.pri_ape || 'N/A' }} {{ estudiante.seg_ape || 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="p-6">
                             <div class="space-y-3">
+                              
                                 <div class="flex items-center">
                                     <i class="fas fa-id-card text-gray-500 w-5 mr-3"></i>
-                                    <span class="text-gray-600">ID: <strong>{{ estudiante.id }}</strong></span>
+                                    <span class="text-gray-600">DNI: {{ estudiante.dni || 'N/A' }}</span>
                                 </div>
+                            
+                                <!-- Email -->
                                 <div class="flex items-center">
                                     <i class="fas fa-envelope text-gray-500 w-5 mr-3"></i>
-                                    <span class="text-gray-600 truncate">{{ estudiante.email || 'N/A' }}</span>
+                                    <span class="text-gray-600 truncate">Correo: {{ estudiante.email || 'N/A' }}</span>
                                 </div>
+                                
+                                <!-- Teléfono -->
                                 <div class="flex items-center">
                                     <i class="fas fa-phone text-gray-500 w-5 mr-3"></i>
-                                    <span class="text-gray-600">{{ estudiante.telefono || 'N/A' }}</span>
+                                    <span class="text-gray-600">Telefono: {{ estudiante.telefono || 'N/A' }}</span>
+                                </div>
+                                
+                                <!-- Carrera -->
+                                <div class="flex items-center">
+                                    <i class="fas fa-graduation-cap text-gray-500 w-5 mr-3"></i>
+                                    <span class="text-gray-600">Carrera: {{ estudiante.carrera || 'N/A' }}</span>
                                 </div>
                             </div>
                             
@@ -73,8 +84,16 @@ defineProps({
                                 <Link :href="`/estudiantes/${estudiante.id}`" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
                                     <i class="fas fa-eye mr-2"></i> Ver detalles
                                 </Link>
-                                <Link :href="`/estudiantes/${estudiante.id}/edit`" class="text-green-600 hover:text-green-800 font-medium flex items-center">
-                                    <i class="fas fa-edit mr-2"></i> Editar
+                                <Link
+                                     :href="`/estudiantes/${estudiante.id}/edit`"
+                                       class="text-green-600 hover:text-green-800 font-medium flex items-center"
+                                     >
+                                         <i class="fas fa-edit mr-2"></i> Editar
+                                </Link>
+
+                                
+                                <Link :href="`/estudiantes/${estudiante.id}`" method="delete" as="button" class="text-red-600 hover:text-red-800 font-medium flex items-center">
+                                    <i class="fas fa-trash mr-2"></i> Eliminar
                                 </Link>
                             </div>
                         </div>

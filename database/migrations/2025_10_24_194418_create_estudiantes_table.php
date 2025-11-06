@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +12,14 @@ return new class extends Migration
     {
         Schema::create('estudiantes', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo', length: 21)->nullable();
-            $table->string('nombres', length: 120);
-            $table->string('pri_ape', length: 120);
-            $table->string('seg_ape', length: 100);
-            $table->string('dni', length: 8)->nullable();
+            $table->string('codigo', 21)->nullable();
+            $table->string('nombres', 120);
+            $table->string('pri_ape', 120);
+            $table->string('seg_ape', 100);
+            $table->string('dni', 8)->nullable();
+            $table->string('email', 150)->nullable();          // Nuevo campo
+            $table->string('telefono', 20)->nullable();        // Nuevo campo
+            $table->string('carrera', 100)->nullable();        // Nuevo campo
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('estudiantes');
-        
     }
 };
+

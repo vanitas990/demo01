@@ -20,7 +20,10 @@ class Estudiante extends Model
         'nombres',
         'pri_ape',
         'seg_ape',
-        'dni'
+        'dni',
+        'email',      // Nuevo campo
+        'telefono',   // Nuevo campo
+        'carrera'     // Nuevo campo
     ];
 
     /**
@@ -51,7 +54,10 @@ class Estudiante extends Model
             'nombres' => 'required|string|max:100',
             'pri_ape' => 'required|string|max:50',
             'seg_ape' => 'nullable|string|max:50',
-            'dni' => 'required|string|max:15|unique:estudiantes,dni'
+            'dni' => 'required|string|max:15|unique:estudiantes,dni',
+            'email' => 'nullable|email|max:150|unique:estudiantes,email',    // Nueva regla
+            'telefono' => 'nullable|string|max:20',                          // Nueva regla
+            'carrera' => 'nullable|string|max:100'                           // Nueva regla
         ];
     }
 
@@ -66,7 +72,11 @@ class Estudiante extends Model
             'nombres.required' => 'Los nombres son obligatorios',
             'pri_ape.required' => 'El primer apellido es obligatorio',
             'dni.required' => 'El DNI es obligatorio',
-            'dni.unique' => 'El DNI ya está registrado en el sistema'
+            'dni.unique' => 'El DNI ya está registrado en el sistema',
+            'email.email' => 'El formato del email no es válido',            // Nuevo mensaje
+            'email.unique' => 'El email ya está registrado en el sistema',   // Nuevo mensaje
+            'telefono.max' => 'El teléfono no puede exceder los 20 caracteres', // Nuevo mensaje
+            'carrera.max' => 'La carrera no puede exceder los 100 caracteres'   // Nuevo mensaje
         ];
     }
 
@@ -78,7 +88,10 @@ class Estudiante extends Model
         return $query->where('codigo', 'LIKE', "%{$search}%")
                     ->orWhere('nombres', 'LIKE', "%{$search}%")
                     ->orWhere('pri_ape', 'LIKE', "%{$search}%")
-                    ->orWhere('dni', 'LIKE', "%{$search}%");
+                    ->orWhere('dni', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")      // Nueva búsqueda
+                    ->orWhere('telefono', 'LIKE', "%{$search}%")   // Nueva búsqueda
+                    ->orWhere('carrera', 'LIKE', "%{$search}%");   // Nueva búsqueda
     }
 
     /**
@@ -95,6 +108,25 @@ class Estudiante extends Model
     public function getNombreCompletoAttribute()
     {
         return trim("{$this->nombres} {$this->pri_ape} " . ($this->seg_ape ?? ''));
+    }
+
+    /**
+     * Obtener información de contacto completa
+     */
+    public function getContactoCompletoAttribute()
+    {
+        $contacto = [];
+        if ($this->email) {
+            $contacto[] = "Email: {$this->email}";
+        }
+        if ($this->telefono) {
+            $contacto[] = "Teléfono: {$this->telefono}";
+        }
+        if ($this->carrera) {
+            $contacto[] = "Carrera: {$this->carrera}";
+        }
+        
+        return implode(' | ', $contacto);
     }
 
     /**

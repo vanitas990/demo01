@@ -25,7 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::resource('estudiantes', EstudiantesInertiaController::class);
-
+Route::get('/estudiantes', [EstudiantesInertiaController::class, 'index'])->name('estudiantes.index');
+Route::get('/estudiantes/{id}/edit', [EstudiantesInertiaController::class, 'edit'])->name('estudiantes.edit');
+Route::put('/estudiantes/{id}', [EstudiantesInertiaController::class, 'update'])->name('estudiantes.update');
 Route::middleware(['auth'])->group(function () {
     Route::get('/Usuarios', [UsuariosInertiaController::class, 'Index'])->name('Usuarios.Index');
 });
