@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 
 defineProps({
     estudiantes: {
@@ -8,6 +8,19 @@ defineProps({
         required: true
     }
 })
+
+const eliminarEstudiante = (id) => {
+  if (confirm('¿Seguro que deseas eliminar este estudiante?')) {
+    router.delete(route('estudiantes.destroy', id), {
+      onSuccess: () => {
+        alert('Estudiante eliminado exitosamente')
+      },
+      onError: (errors) => {
+        console.error(errors)
+      },
+    })
+  }
+}
 </script>
 
 <template>
@@ -25,11 +38,21 @@ defineProps({
 
         <div class="py-8">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <!-- Botón para agregar nuevo estudiante -->
-                <div class="mb-6 flex justify-end">
+                <!-- Botones de acción -->
+                <div class="mb-6 flex justify-end space-x-4">
+                    <!-- Botón Nuevo Estudiante -->
                     <Link href="/estudiantes/create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center">
                         <i class="fas fa-plus mr-2"></i> Nuevo Estudiante
                     </Link>
+                    
+                    <!-- Botón Generar PDF -->
+                    <a 
+    :href="route('estudiantes.reporte.pdf')" 
+    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center"
+    target="_blank"
+>
+    <i class="fas fa-file-pdf mr-2"></i> Generar PDF
+</a>
                 </div>
 
                 <!-- Mensaje si no hay estudiantes -->
@@ -47,15 +70,15 @@ defineProps({
                                     <i class="fas fa-user-graduate text-2xl"></i>
                                 </div>
                                 <div>
-                                    
-                                    <p class="text-blue-100 text-sm">{{ estudiante.nombres || 'Estudiante' }} {{ estudiante.pri_ape || 'N/A' }} {{ estudiante.seg_ape || 'N/A' }}</p>
+                                    <h3 class="text-xl font-semibold">{{ estudiante.nombres || 'Estudiante' }} {{ estudiante.pri_ape || '' }} {{ estudiante.seg_ape || '' }}</h3>
+                                    <p class="text-blue-100 text-sm">{{ estudiante.codigo || 'Sin código' }}</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="p-6">
                             <div class="space-y-3">
-                              
+                                <!-- DNI -->
                                 <div class="flex items-center">
                                     <i class="fas fa-id-card text-gray-500 w-5 mr-3"></i>
                                     <span class="text-gray-600">DNI: {{ estudiante.dni || 'N/A' }}</span>
@@ -70,7 +93,7 @@ defineProps({
                                 <!-- Teléfono -->
                                 <div class="flex items-center">
                                     <i class="fas fa-phone text-gray-500 w-5 mr-3"></i>
-                                    <span class="text-gray-600">Telefono: {{ estudiante.telefono || 'N/A' }}</span>
+                                    <span class="text-gray-600">Teléfono: {{ estudiante.telefono || 'N/A' }}</span>
                                 </div>
                                 
                                 <!-- Carrera -->
@@ -81,20 +104,21 @@ defineProps({
                             </div>
                             
                             <div class="mt-6 flex justify-between">
-                                <Link :href="`/estudiantes/${estudiante.id}`" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                                    <i class="fas fa-eye mr-2"></i> Ver detalles
-                                </Link>
+                                <!-- Botón Editar -->
                                 <Link
-                                     :href="`/estudiantes/${estudiante.id}/edit`"
-                                       class="text-green-600 hover:text-green-800 font-medium flex items-center"
-                                     >
-                                         <i class="fas fa-edit mr-2"></i> Editar
+                                    :href="`/estudiantes/${estudiante.id}/edit`"
+                                    class="text-green-600 hover:text-green-800 font-medium flex items-center"
+                                >
+                                    <i class="fas fa-edit mr-2"></i> Editar
                                 </Link>
 
-                                
-                                <Link :href="`/estudiantes/${estudiante.id}`" method="delete" as="button" class="text-red-600 hover:text-red-800 font-medium flex items-center">
+                                <!-- Botón Eliminar -->
+                                <button
+                                    @click="eliminarEstudiante(estudiante.id)"
+                                    class="text-red-600 hover:text-red-800 font-medium flex items-center"
+                                >
                                     <i class="fas fa-trash mr-2"></i> Eliminar
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </div>
