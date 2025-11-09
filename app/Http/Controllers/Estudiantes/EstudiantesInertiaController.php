@@ -49,15 +49,7 @@ class EstudiantesInertiaController extends Controller
         }
     }
 
-    // Método para mostrar un estudiante específico
-    public function show($id)
-    {
-        $estudiante = Estudiante::findOrFail($id);
-        
-        return Inertia::render('Estudiante/Show', [
-            'estudiante' => $estudiante
-        ]);
-    }
+ 
 
     // Método para editar un estudiante
     public function edit($id)
@@ -97,20 +89,31 @@ class EstudiantesInertiaController extends Controller
                             ->withInput();
         }
     }
-
-    // Método para eliminar un estudiante
-    public function destroy($id)
-    {
-        try {
-            $estudiante = Estudiante::findOrFail($id);
-            $estudiante->delete();
-            
-            return redirect()->route('estudiantes.index')
-                            ->with('success', 'Estudiante eliminado exitosamente');
-                            
-        } catch (\Exception $e) {
-            return redirect()->back()
-                            ->with('error', 'Error al eliminar el estudiante: ' . $e->getMessage());
-        }
+    // En App\Http\Controllers\Estudiantes\EstudiantesInertiaController
+public function destroy($id)
+{
+    try {
+        $estudiante = Estudiante::findOrFail($id);
+        $estudiante->delete();
+        
+        return redirect()->route('estudiantes.index')
+                        ->with('success', 'Estudiante eliminado exitosamente');
+                        
+    } catch (\Exception $e) {
+        return redirect()->back()
+                        ->with('error', 'Error al eliminar el estudiante: ' . $e->getMessage());
     }
+}
+
+
+    // Agrega este método en EstudiantesInertiaController
+public function delete($id)
+{
+    $estudiante = Estudiante::findOrFail($id);
+    
+    return Inertia::render('Estudiante/delete', [
+        'estudiante' => $estudiante
+    ]);
+}
+
 }

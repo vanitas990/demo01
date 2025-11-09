@@ -111,14 +111,14 @@ const eliminarEstudiante = (id) => {
                                 >
                                     <i class="fas fa-edit mr-2"></i> Editar
                                 </Link>
+<!-- Botón Eliminar (cambiar button por Link) -->
+<Link
+    :href="`/estudiantes/${estudiante.id}/delete`"
+    class="text-red-600 hover:text-red-800 font-medium flex items-center"
+>
+    <i class="fas fa-trash mr-2"></i> Eliminar
+</Link>
 
-                                <!-- Botón Eliminar -->
-                                <button
-                                    @click="eliminarEstudiante(estudiante.id)"
-                                    class="text-red-600 hover:text-red-800 font-medium flex items-center"
-                                >
-                                    <i class="fas fa-trash mr-2"></i> Eliminar
-                                </button>
                             </div>
                         </div>
                     </div>

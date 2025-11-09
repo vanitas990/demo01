@@ -33,7 +33,10 @@ Route::get('/estudiantes', [EstudiantesInertiaController::class, 'index'])->name
 Route::get('/estudiantes/{id}/edit', [EstudiantesInertiaController::class, 'edit'])->name('estudiantes.edit');
 Route::put('/estudiantes/{id}', [EstudiantesInertiaController::class, 'update'])->name('estudiantes.update');
 
-// RUTA DEL PDF CORREGIDA
+Route::get('/estudiantes/{id}/delete', [EstudiantesInertiaController::class, 'delete'])
+    ->name('estudiantes.delete');
+
+// RUTA DEL PDF 
 Route::get('/estudiantes/reporte/pdf', [EstudianteReportePdfController::class, 'index'])
     ->name('estudiantes.reporte.pdf');
 
