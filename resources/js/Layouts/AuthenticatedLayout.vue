@@ -43,7 +43,7 @@ const userSegApe = computed(() => user.value?.seg_ape || '');
                                 <NavLink :href="route('estudiantes.index')" :active="route().current('estudiantes.index')">
                                     Estudiantes
                                 </NavLink>
-                                <NavLink :href="route('Usuarios.Index')" :active="route().current('Usuarios.Index')">
+                                <NavLink :href="route('usuarios.index')" :active="route().current('usuarios.index')">
                                     Usuarios
                                 </NavLink>
                             </div>
@@ -126,7 +126,7 @@ const userSegApe = computed(() => user.value?.seg_ape || '');
                         <ResponsiveNavLink :href="route('estudiantes.index')" :active="route().current('estudiantes.index')">
                             Estudiantes
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('Usuarios.Index')" :active="route().current('Usuarios.Index')">
+                        <ResponsiveNavLink :href="route('usuarios.index')" :active="route().current('usuarios.index ')">
                             Usuarios
                         </ResponsiveNavLink>
                     </div>

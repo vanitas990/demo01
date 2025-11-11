@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
+            $table->string('nombre');
+            $table->string('apellido')->nullable(); // 👈 COLUMNA FALTANTE
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('telefono')->nullable();
+            $table->text('direccion')->nullable();
+            $table->enum('genero', ['masculino', 'femenino', 'otro'])->nullable();
+            $table->enum('estado', ['activo', 'inactivo', 'pendiente'])->default('activo');
             $table->string('avatar')->nullable();
             $table->integer('nivel')->default(1);
             $table->integer('experiencia')->default(0);

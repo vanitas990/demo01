@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Usuarios\UsuariosInertiaController;
 use App\Http\Controllers\Estudiantes\EstudianteReportePdfController;
-
+use App\Http\Controllers\Usuarios\UsuarioReportepdfController;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -40,9 +40,21 @@ Route::get('/estudiantes/{id}/delete', [EstudiantesInertiaController::class, 'de
 Route::get('/estudiantes/reporte/pdf', [EstudianteReportePdfController::class, 'index'])
     ->name('estudiantes.reporte.pdf');
 
-// RUTAS DE USUARIOS
 Route::middleware(['auth'])->group(function () {
-    Route::get('/Usuarios', [UsuariosInertiaController::class, 'Index'])->name('Usuarios.Index');
+    // Rutas GET
+    Route::get('/usuarios', [UsuariosInertiaController::class, 'index'])->name('usuarios.index');
+    Route::get('/usuarios/create', [UsuariosInertiaController::class, 'create'])->name('usuarios.create');
+    Route::get('/usuarios/{id}/edit', [UsuariosInertiaController::class, 'edit'])->name('usuarios.edit');
+    Route::get('/usuarios/{id}/delete', [UsuariosInertiaController::class, 'delete'])->name('usuarios.delete');
+    
+    // Rutas de acción
+    Route::post('/usuarios', [UsuariosInertiaController::class, 'store'])->name('usuarios.store');
+    Route::put('/usuarios/{id}', [UsuariosInertiaController::class, 'update'])->name('usuarios.update');
+    Route::delete('/usuarios/{id}', [UsuariosInertiaController::class, 'destroy'])->name('usuarios.destroy');
 });
+Route::get('/usuarios/reporte/pdf', [UsuarioReportePdfController::class, 'index'])
+    ->name('usuarios.reporte.pdf');
+
+
 
 require __DIR__.'/auth.php';
